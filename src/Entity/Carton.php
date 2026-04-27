@@ -18,7 +18,7 @@ class Carton
     private ?string $couleurCarton = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $dateCarton = null;
+    private ?\DateTimeInterface $dateCarton = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $motif = null;
@@ -26,6 +26,10 @@ class Carton
     #[ORM\ManyToOne(inversedBy: 'cartons')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Joueur $joueur = null;
+
+    #[ORM\ManyToOne(inversedBy: 'cartons')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Rencontre $rencontre = null;
 
     public function getId(): ?int
     {
@@ -40,19 +44,17 @@ class Carton
     public function setCouleurCarton(string $couleurCarton): static
     {
         $this->couleurCarton = $couleurCarton;
-
         return $this;
     }
 
-    public function getDateCarton(): ?\DateTime
+    public function getDateCarton(): ?\DateTimeInterface
     {
         return $this->dateCarton;
     }
 
-    public function setDateCarton(\DateTime $dateCarton): static
+    public function setDateCarton(\DateTimeInterface $dateCarton): static
     {
         $this->dateCarton = $dateCarton;
-
         return $this;
     }
 
@@ -64,7 +66,6 @@ class Carton
     public function setMotif(?string $motif): static
     {
         $this->motif = $motif;
-
         return $this;
     }
 
@@ -76,7 +77,17 @@ class Carton
     public function setJoueur(?Joueur $joueur): static
     {
         $this->joueur = $joueur;
+        return $this;
+    }
 
+    public function getRencontre(): ?Rencontre
+    {
+        return $this->rencontre;
+    }
+
+    public function setRencontre(?Rencontre $rencontre): static
+    {
+        $this->rencontre = $rencontre;
         return $this;
     }
 }

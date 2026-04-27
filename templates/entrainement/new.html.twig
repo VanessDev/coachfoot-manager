@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel entraînement{% endblock %}
+
+{% block body %}
+<section class="form-page">
+    <div class="form-card">
+        <h1>Nouvel entraînement</h1>
+
+        {{ include('entrainement/_form.html.twig', {'button_label': 'Créer l’entraînement'}) }}
+
+        <a href="{{ path('app_entrainement_index') }}" class="back-link">
+            Retour à la liste
+        </a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Carton{% endblock %}
+
+{% block body %}
+    <h1>Create new Carton</h1>
+
+    {{ include('carton/_form.html.twig') }}
+
+    <a href="{{ path('app_carton_index') }}">back to list</a>
+{% endblock %}

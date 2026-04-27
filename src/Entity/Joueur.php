@@ -52,6 +52,7 @@ class Joueur
      * @var Collection<int, Carton>
      */
     #[ORM\OneToMany(targetEntity: Carton::class, mappedBy: 'joueur')]
+    #[ORM\OrderBy(['dateCarton' => 'DESC'])]
     private Collection $cartons;
 
     public function __construct()
@@ -201,5 +202,31 @@ class Joueur
         }
 
         return $this;
+    }
+
+    public function getNombreCartons(): int
+    {
+        return $this->cartons->count();
+    }
+
+    public function getNombreCartonsJaunes(): int
+    {
+        return $this->cartons->filter(function (Carton $carton) {
+            return strtolower($carton->getCouleurCarton()) === 'jaune';
+        })->count();
+    }
+
+    public function getNombreCartonsRouges(): int
+    {
+        return $this->cartons->filter(function (Carton $carton) {
+            return strtolower($carton->getCouleurCarton()) === 'rouge';
+        })->count();
+    }
+
+    public function isSuspendu(): bool
+    {
+        return $this->getNombreCartonsRouges() >= 1
+            || $this->getNombreCartonsJaunes() >= 3
+            || $this->statut === 'suspendu';
     }
 }

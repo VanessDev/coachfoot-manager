@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RencontreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -41,6 +43,17 @@ class Rencontre
     #[ORM\ManyToOne(inversedBy: 'rencontres')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Equipe $equipe = null;
+
+    /**
+     * @var Collection<int, Carton>
+     */
+    #[ORM\OneToMany(targetEntity: Carton::class, mappedBy: 'rencontre')]
+    private Collection $cartons;
+
+    public function __construct()
+    {
+        $this->cartons = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -151,6 +164,36 @@ class Rencontre
     public function setEquipe(?Equipe $equipe): static
     {
         $this->equipe = $equipe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Carton>
+     */
+    public function getCartons(): Collection
+    {
+        return $this->cartons;
+    }
+
+    public function addCarton(Carton $carton): static
+    {
+        if (!$this->cartons->contains($carton)) {
+            $this->cartons->add($carton);
+            $carton->setRencontre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCarton(Carton $carton): static
+    {
+        if ($this->cartons->removeElement($carton)) {
+            // set the owning side to null (unless already changed)
+            if ($carton->getRencontre() === $this) {
+                $carton->setRencontre(null);
+            }
+        }
 
         return $this;
     }

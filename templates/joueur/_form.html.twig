@@ -1,0 +1,57 @@
+{{ form_start(form, {'attr': {'class': 'app-form'}}) }}
+
+    <div class="form-group">
+        {{ form_label(form.nom, 'Nom') }}
+        {{ form_widget(form.nom) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.prenom, 'Prénom') }}
+        {{ form_widget(form.prenom) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.dateNaissance, 'Date de naissance') }}
+        {{ form_widget(form.dateNaissance) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.genre, 'Genre') }}
+        {{ form_widget(form.genre) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.docteurNom, 'Nom du médecin') }}
+        {{ form_widget(form.docteurNom) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.docteurPhone, 'Téléphone du médecin') }}
+        {{ form_widget(form.docteurPhone) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.postePrefere, 'Poste préféré') }}
+        {{ form_widget(form.postePrefere) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.statut, 'Statut') }}
+        {{ form_widget(form.statut) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.equipe, 'Équipe') }}
+        {{ form_widget(form.equipe) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.responsable, 'Responsable') }}
+        {{ form_widget(form.responsable) }}
+    </div>
+
+    <button class="btn-create">
+        {{ button_label|default('Enregistrer') }}
+    </button>
+
+{{ form_end(form) }}

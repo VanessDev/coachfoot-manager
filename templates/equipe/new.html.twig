@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle équipe{% endblock %}
+
+{% block body %}
+<section class="form-page">
+    <div class="form-card">
+        <h1>Nouvelle équipe</h1>
+
+        {{ include('equipe/_form.html.twig', {'button_label': 'Créer l’équipe'}) }}
+
+        <a href="{{ path('app_equipe_index') }}" class="back-link">
+            Retour à la liste
+        </a>
+    </div>
+</section>
+{% endblock %}

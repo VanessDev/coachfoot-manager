@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle rencontre{% endblock %}
+
+{% block body %}
+<section class="form-page">
+    <div class="form-card">
+        <h1>Nouvelle rencontre</h1>
+
+        {{ include('rencontre/_form.html.twig', {'button_label': 'Créer la rencontre'}) }}
+
+        <a href="{{ path('app_rencontre_index') }}" class="back-link">
+            Retour à la liste
+        </a>
+    </div>
+</section>
+{% endblock %}

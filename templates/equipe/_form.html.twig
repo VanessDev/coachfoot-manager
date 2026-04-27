@@ -1,0 +1,31 @@
+{{ form_start(form, {'attr': {'class': 'app-form'}}) }}
+
+    <div class="form-group">
+        {{ form_label(form.nomEquipe, 'Nom équipe') }}
+        {{ form_widget(form.nomEquipe) }}
+        {{ form_errors(form.nomEquipe) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.categorie, 'Catégorie') }}
+        {{ form_widget(form.categorie) }}
+        {{ form_errors(form.categorie) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.saison, 'Saison') }}
+        {{ form_widget(form.saison) }}
+        {{ form_errors(form.saison) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.entraineur, 'Entraîneur') }}
+        {{ form_widget(form.entraineur) }}
+        {{ form_errors(form.entraineur) }}
+    </div>
+
+    <button class="btn-create">
+        {{ button_label|default('Enregistrer') }}
+    </button>
+
+{{ form_end(form) }}

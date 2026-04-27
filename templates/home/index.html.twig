@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - CoachFootManager{% endblock %}
+
+{% block body %}
+<section class="dashboard">
+
+    <div class="hero-card">
+        <p class="eyebrow">Gestion sportive</p>
+        <h1>Tableau de bord coach</h1>
+        <p>
+            Bienvenue sur CoachFootManager, votre application de gestion d’équipe de football.
+        </p>
+    </div>
+
+    <h2>Statistiques</h2>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-icon">👥</span>
+            <p>Joueurs</p>
+            <strong>{{ nbJoueurs }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-icon">⚽</span>
+            <p>Équipes</p>
+            <strong>{{ nbEquipes }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-icon">🟨</span>
+            <p>Cartons</p>
+            <strong>{{ nbCartons }}</strong>
+        </div>
+
+        <div class="stat-card danger">
+            <span class="stat-icon">🚫</span>
+            <p>Joueurs suspendus</p>
+            <strong>{{ joueursSuspendus|filter(j => j.suspendu)|length }}</strong>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="panel">
+            <h3>Joueurs suspendus</h3>
+
+            <ul class="suspended-list">
+                {% for joueur in joueursSuspendus %}
+                    {% if joueur.suspendu %}
+                        <li>{{ joueur.prenom }} {{ joueur.nom }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="panel">
+            <h3>Actions rapides</h3>
+
+            <div class="quick-links">
+                <a href="{{ path('app_joueur_index') }}">Gérer les joueurs</a>
+                <a href="{{ path('app_equipe_index') }}">Gérer les équipes</a>
+                <a href="{{ path('app_entrainement_index') }}">Gérer les entraînements</a>
+                <a href="{{ path('app_rencontre_index') }}">Gérer les rencontres</a>
+                <a href="{{ path('app_materiel_index') }}">Gérer le matériel</a>
+                <a href="{{ path('app_carton_index') }}">Gérer les cartons</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

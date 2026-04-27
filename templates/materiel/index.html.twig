@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Materiel index{% endblock %}
+
+{% block body %}
+    <h1>Materiel index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomMateriel</th>
+                <th>QuantiteActuelle</th>
+                <th>SeuilAlerte</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for materiel in materiels %}
+            <tr>
+                <td>{{ materiel.id }}</td>
+                <td>{{ materiel.nomMateriel }}</td>
+                <td>{{ materiel.quantiteActuelle }}</td>
+                <td>{{ materiel.seuilAlerte }}</td>
+                <td>
+                    <a href="{{ path('app_materiel_show', {'id': materiel.id}) }}" class="btn-action btn-show">Voir</a>
+                    <a href="{{ path('app_materiel_edit', {'id': materiel.id}) }}" class="btn-action btn-edit">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_materiel_new') }}" class="btn-create">
+    ➕ Nouveau matériel
+</a>
+{% endblock %}

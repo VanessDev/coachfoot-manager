@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}CoachFootManager{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo">CoachFootManager</div>
+
+        <nav class="main-nav">
+            <a href="{{ path('app_home') }}">Accueil</a>
+            <a href="{{ path('app_joueur_index') }}">Joueurs</a>
+            <a href="{{ path('app_equipe_index') }}">Équipes</a>
+            <a href="{{ path('app_entrainement_index') }}">Entraînements</a>
+            <a href="{{ path('app_rencontre_index') }}">Rencontres</a>
+            <a href="{{ path('app_materiel_index') }}">Matériel</a>
+            <a href="{{ path('app_carton_index') }}">Cartons</a>
+
+            {% if app.user %}
+                <a href="{{ path('app_profil') }}" class="nav-user">
+                    👋 {{ app.user.prenom }}
+                </a>
+
+                <a href="{{ path('app_logout') }}" class="nav-logout">
+                    Déconnexion
+                </a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="nav-login">
+                    Connexion
+                </a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="page-container">
+        {% block body %}{% endblock %}
+    </main>
+</body>
+</html>

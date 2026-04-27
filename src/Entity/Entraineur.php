@@ -6,9 +6,11 @@ use App\Repository\EntraineurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: EntraineurRepository::class)]
-class Entraineur
+class Entraineur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -51,7 +53,6 @@ class Entraineur
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -63,7 +64,6 @@ class Entraineur
     public function setPrenom(string $prenom): static
     {
         $this->prenom = $prenom;
-
         return $this;
     }
 
@@ -75,7 +75,6 @@ class Entraineur
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -87,8 +86,26 @@ class Entraineur
     public function setMotDePasse(string $motDePasse): static
     {
         $this->motDePasse = $motDePasse;
-
         return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->motDePasse;
+    }
+
+    public function eraseCredentials(): void
+    {
     }
 
     /**
@@ -112,7 +129,6 @@ class Entraineur
     public function removeEquipe(Equipe $equipe): static
     {
         if ($this->equipes->removeElement($equipe)) {
-            // set the owning side to null (unless already changed)
             if ($equipe->getEntraineur() === $this) {
                 $equipe->setEntraineur(null);
             }

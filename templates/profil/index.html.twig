@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+<div class="profile-card">
+    <div class="profile-avatar">
+        {{ app.user.prenom|first|upper }}{{ app.user.nom|first|upper }}
+    </div>
+
+    <div class="profile-content">
+        <p class="eyebrow">Espace coach</p>
+        <h1>{{ app.user.prenom }} {{ app.user.nom }}</h1>
+
+        <div class="profile-info">
+            <p><strong>Email :</strong> {{ app.user.email }}</p>
+            <p><strong>Rôle :</strong> Entraîneur</p>
+            <p><strong>Statut :</strong> Connecté</p>
+        </div>
+
+        <a href="{{ path('app_home') }}" class="profile-btn">
+            Retour au tableau de bord
+        </a>
+    </div>
+</div>
+{% endblock %}

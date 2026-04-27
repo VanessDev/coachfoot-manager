@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Joueurs{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+
+    <h2>Gestion des joueurs</h2>
+
+    <p>
+        <a href="{{ path('app_joueur_new') }}" class="btn-create">
+         ➕ Ajouter un joueur
+        </a>
+    </p>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Poste</th>
+                <th>Cartons</th>
+                <th>Statut</th>
+                <th>Équipe</th>
+                <th>Responsable</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for joueur in joueurs %}
+            <tr>
+                <td>{{ joueur.nom }}</td>
+                <td>{{ joueur.prenom }}</td>
+                <td>{{ joueur.dateNaissance ? joueur.dateNaissance|date('d/m/Y') : '' }}</td>
+                <td>{{ joueur.postePrefere }}</td>
+
+                <td>
+                    <span style="background-color: gold; padding: 5px; border-radius: 5px;">
+                        🟨 {{ joueur.nombreCartonsJaunes }}
+                    </span>
+
+                    <span style="background-color: red; color: white; padding: 5px; border-radius: 5px;">
+                        🟥 {{ joueur.nombreCartonsRouges }}
+                    </span>
+                </td>
+
+                <td>
+                    {% if joueur.suspendu %}
+                        <span style="color: red; font-weight: bold;">
+                            Suspendu
+                        </span>
+                    {% else %}
+                        <span style="color: green;">
+                            {{ joueur.statut }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td>{{ joueur.equipe ? joueur.equipe.nomEquipe : '' }}</td>
+
+                <td>
+                    {{ joueur.responsable ? joueur.responsable.nom ~ ' ' ~ joueur.responsable.prenom : '' }}
+                </td>
+
+                <td>
+                   <a href="{{ path('app_joueur_show', {'id': joueur.id}) }}" class="btn-action btn-show">Voir</a>
+                   <a href="{{ path('app_joueur_edit', {'id': joueur.id}) }}" class="btn-action btn-edit">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Aucun joueur</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

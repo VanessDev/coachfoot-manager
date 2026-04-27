@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entrainement index{% endblock %}
+
+{% block body %}
+    <h1>Entrainement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>DateEntrainement</th>
+                <th>HeureDebut</th>
+                <th>HeureFin</th>
+                <th>Lieu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entrainement in entrainements %}
+            <tr>
+                <td>{{ entrainement.id }}</td>
+                <td>{{ entrainement.titre }}</td>
+                <td>{{ entrainement.dateEntrainement ? entrainement.dateEntrainement|date('Y-m-d') : '' }}</td>
+                <td>{{ entrainement.heureDebut ? entrainement.heureDebut|date('H:i:s') : '' }}</td>
+                <td>{{ entrainement.heureFin ? entrainement.heureFin|date('H:i:s') : '' }}</td>
+                <td>{{ entrainement.lieu }}</td>
+                <td>
+                    <a href="{{ path('app_entrainement_show', {'id': entrainement.id}) }}" class="btn-action btn-show">Voir</a>
+                    <a href="{{ path('app_entrainement_edit', {'id': entrainement.id}) }}" class="btn-action btn-edit">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_entrainement_new') }}" class="btn-create">
+    ➕ Nouvel entraînement
+</a>
+{% endblock %}

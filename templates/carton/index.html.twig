@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des cartons{% endblock %}
+
+{% block body %}
+    <h1>Gestion des cartons</h1>
+
+    <p>
+        <a href="{{ path('app_carton_new') }}" class="btn-create">
+    ➕ Ajouter un carton
+</a>
+    </p>
+
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Joueur</th>
+                <th>Équipe</th>
+                <th>Carton</th>
+                <th>Date</th>
+                <th>Motif</th>
+                <th>Rencontre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for carton in cartons %}
+            <tr>
+                <td>
+                    {{ carton.joueur ? carton.joueur.prenom ~ ' ' ~ carton.joueur.nom : 'Non renseigné' }}
+                </td>
+
+                <td>
+                    {{ carton.joueur and carton.joueur.equipe ? carton.joueur.equipe.nomEquipe : 'Non renseignée' }}
+                </td>
+
+                <td>
+                    {% if carton.couleurCarton == 'jaune' %}
+                        <span style="background-color: gold; padding: 4px 8px; border-radius: 4px;">
+                            🟨 Jaune
+                        </span>
+                    {% elseif carton.couleurCarton == 'rouge' %}
+                        <span style="background-color: red; color: white; padding: 4px 8px; border-radius: 4px;">
+                            🟥 Rouge
+                        </span>
+                    {% else %}
+                        {{ carton.couleurCarton }}
+                    {% endif %}
+                </td>
+
+                <td>
+                    {{ carton.dateCarton ? carton.dateCarton|date('d/m/Y') : 'Non renseignée' }}
+                </td>
+
+                <td>
+                    {{ carton.motif ?: 'Pas de motif' }}
+                </td>
+
+                <td>
+                    {% if carton.rencontre %}
+                        vs {{ carton.rencontre.adversaire ?: 'Adversaire non renseigné' }}
+                        {% if carton.rencontre.dateMatch %}
+                            - {{ carton.rencontre.dateMatch|date('d/m/Y') }}
+                        {% endif %}
+                    {% else %}
+                        Aucune rencontre
+                    {% endif %}
+                </td>
+
+                <td>
+                    <a href="{{ path('app_carton_show', {'id': carton.id}) }}" class="btn-action btn-show">Voir</a>
+                    <a href="{{ path('app_carton_edit', {'id': carton.id}) }}" class="btn-action btn-edit">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucun carton enregistré.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

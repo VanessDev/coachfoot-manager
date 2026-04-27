@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau matériel{% endblock %}
+
+{% block body %}
+<section class="form-page">
+    <div class="form-card">
+        <h1>Nouveau matériel</h1>
+
+        {{ include('materiel/_form.html.twig', {'button_label': 'Créer le matériel'}) }}
+
+        <a href="{{ path('app_materiel_index') }}" class="back-link">
+            Retour à la liste
+        </a>
+    </div>
+</section>
+{% endblock %}
